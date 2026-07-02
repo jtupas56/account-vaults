@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Mysite" %></title>
+    <title><%= content_for(:title) || "Vault" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Mysite">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <!-- Minimal Header -->
+    <header style="background:#1a1a2e; color:#fff; padding:12px 20px;">
+      <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-weight:bold; font-size:18px;">🔐 Vault</span>
+        <div>
+          <% if user_signed_in? %>
+            <span style="font-size:14px; margin-right:15px; color:#aaa;"><%= current_user.email %></span>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, 
+                style: "background:#dc3545; border:none; color:#fff; padding:5px 15px; border-radius:4px; cursor:pointer;" %>
+          <% else %>
+            <%= link_to "Login", new_user_session_path, 
+                style: "background:#0d6efd; color:#fff; padding:5px 15px; border-radius:4px; text-decoration:none;" %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <!-- Flash Messages -->
+    <% if notice %>
+      <div style="max-width:1200px; margin:15px auto 0; padding:10px; background:#d4edda; border:1px solid #c3e6cb; border-radius:4px; color:#155724;">
+        <%= notice %>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div style="max-width:1200px; margin:10px auto 0; padding:10px; background:#f8d7da; border:1px solid #f5c6cb; border-radius:4px; color:#721c24;">
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <main style="max-width:1200px; margin:20px auto; padding:0 20px;">
       <%= yield %>
     </main>
   </body>
