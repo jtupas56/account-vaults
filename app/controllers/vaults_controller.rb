@@ -3,10 +3,10 @@ class VaultsController < ApplicationController
   before_action :set_vault, only: %i[show edit update destroy]
 
   # GET /vaults
-  def index
-    @vaults = current_user.vaults
-  end
-
+# GET /vaults
+def index
+  @vaults = current_user.vaults.order(updated_at: :desc)
+end
   # GET /vaults/1
   def show
   end
@@ -26,7 +26,7 @@ class VaultsController < ApplicationController
 
     respond_to do |format|
       if @vault.save
-        format.html { redirect_to @vault, notice: "Vault was successfully created." }
+format.html { redirect_to vaults_path, notice: "Vault was successfully created." }
         format.json { render :show, status: :created, location: @vault }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class VaultsController < ApplicationController
   def update
     respond_to do |format|
       if @vault.update(vault_params)
-        format.html { redirect_to @vault, notice: "Vault was successfully updated.", status: :see_other }
+format.html { redirect_to vaults_path, notice: "Vault was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @vault }
       else
         format.html { render :edit, status: :unprocessable_entity }

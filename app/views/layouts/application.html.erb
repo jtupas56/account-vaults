@@ -23,8 +23,10 @@
             data: { confirm: "Are you sure? This will permanently delete your account and all your vaults." },
             style: "background:#6c757d; border:none; color:#fff; padding:5px 15px; border-radius:4px; cursor:pointer;" %>
       <% else %>
-        <%= link_to "Login", new_user_session_path, 
-            style: "background:#0d6efd; color:#fff; padding:5px 15px; border-radius:4px; text-decoration:none;" %>
+        <% unless devise_controller? %>
+          <%= link_to "Login", new_user_session_path, 
+              style: "background:#0d6efd; color:#fff; padding:5px 15px; border-radius:4px; text-decoration:none;" %>
+        <% end %>
       <% end %>
     </div>
   </div>

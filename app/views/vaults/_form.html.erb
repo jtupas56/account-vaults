@@ -1,37 +1,37 @@
-<div class="max-w-xl mx-auto bg-white p-6 rounded shadow space-y-4">
-
-  <%= form_with(model: vault) do |form| %>
-
-    <% if vault.errors.any? %>
-      <div class="bg-red-100 text-red-700 p-3 rounded">
-        <%= vault.errors.full_messages.join(", ") %>
-      </div>
-    <% end %>
-
-    <div>
-      <%= form.label :site, class: "block font-medium" %>
-      <%= form.text_field :site, class: "w-full border p-2 rounded" %>
+<%= form_with(model: vault, class: "max-w-md mx-auto") do |form| %>
+  <% if vault.errors.any? %>
+    <div style="color: red; margin-bottom: 16px;">
+      <h2><%= pluralize(vault.errors.count, "error") %> prohibited this vault from being saved:</h2>
+      <ul>
+        <% vault.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
     </div>
-
-    <div>
-      <%= form.label :url, class: "block font-medium" %>
-      <%= form.text_field :url, class: "w-full border p-2 rounded" %>
-    </div>
-
-    <div>
-      <%= form.label :login, class: "block font-medium" %>
-      <%= form.text_field :login, class: "w-full border p-2 rounded" %>
-    </div>
-
-    <div>
-      <%= form.label :password, class: "block font-medium" %>
-      <%= form.text_field :password, class: "w-full border p-2 rounded" %>
-    </div>
-
-    <div>
-      <%= form.submit class: "bg-blue-600 text-white px-4 py-2 rounded" %>
-    </div>
-
   <% end %>
 
-</div>
+  <div style="margin-bottom: 12px;">
+    <%= form.label :site, style: "display:block; font-weight:500; margin-bottom:4px;" %>
+    <%= form.text_field :site, style: "width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" %>
+  </div>
+
+  <div style="margin-bottom: 12px;">
+    <%= form.label :url, style: "display:block; font-weight:500; margin-bottom:4px;" %>
+    <%= form.text_field :url, style: "width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" %>
+  </div>
+
+  <div style="margin-bottom: 12px;">
+    <%= form.label :login, style: "display:block; font-weight:500; margin-bottom:4px;" %>
+    <%= form.text_field :login, style: "width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" %>
+  </div>
+
+  <div style="margin-bottom: 12px;">
+    <%= form.label :password, style: "display:block; font-weight:500; margin-bottom:4px;" %>
+    <%= form.text_field :password, style: "width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" %>
+  </div>
+
+  <div style="display:flex; gap:10px; align-items:center; margin-top:16px;">
+    <%= form.submit "Create Vault", style: "background:#2563eb; color:#fff; padding:8px 16px; border:none; border-radius:6px; cursor:pointer;" %>
+    <%= link_to "Back", vaults_path, style: "background:#6c757d; color:#fff; padding:8px 16px; border-radius:6px; text-decoration:none;" %>
+  </div>
+<% end %>
