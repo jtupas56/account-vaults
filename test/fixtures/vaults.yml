@@ -1,13 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  site: MyString
-  url: MyString
-  login: MyString
-  password: MyString
+  site: "Google"
+  url: "https://google.com"
+  login: "user1@gmail.com"
+  password: "secret123"
+  user: one
 
 two:
-  site: MyString
-  url: MyString
-  login: MyString
-  password: MyString
+  site: "GitHub"
+  url: "https://github.com"
+  login: "user2@gmail.com"
+  password: "github456"
+  user: two

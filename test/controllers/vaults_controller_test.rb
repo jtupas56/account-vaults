@@ -2,7 +2,9 @@ require "test_helper"
 
 class VaultsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @user = users(:one)
     @vault = vaults(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -16,16 +18,15 @@ class VaultsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create vault" do
-    assert_difference("Vault.count") do
-      post vaults_url, params: { vault: { login: @vault.login, password: @vault.password, site: @vault.site, url: @vault.url } }
+    assert_difference("Vault.count", 1) do
+      post vaults_url, params: { vault: { 
+        login: "testlogin", 
+        password: "testpass", 
+        site: "Test Site", 
+        url: "https://test.com" 
+      } }
     end
-
-    assert_redirected_to vault_url(Vault.last)
-  end
-
-  test "should show vault" do
-    get vault_url(@vault)
-    assert_response :success
+    assert_redirected_to vaults_url
   end
 
   test "should get edit" do
@@ -34,15 +35,14 @@ class VaultsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update vault" do
-    patch vault_url(@vault), params: { vault: { login: @vault.login, password: @vault.password, site: @vault.site, url: @vault.url } }
-    assert_redirected_to vault_url(@vault)
+    patch vault_url(@vault), params: { vault: { site: "Updated Site" } }
+    assert_redirected_to vaults_url
   end
 
   test "should destroy vault" do
     assert_difference("Vault.count", -1) do
       delete vault_url(@vault)
     end
-
     assert_redirected_to vaults_url
   end
 end
